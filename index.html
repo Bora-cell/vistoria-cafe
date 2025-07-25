@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vistoria Kafe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    body {
+      background-color: #fffdf8;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #e8d8c3;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #5b3b2b;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #f3eee7;
+      padding: 10px 0;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #5b3b2b;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      position: relative;
+    }
+
+    .hero img {
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+    }
+
+    .hero-text {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      color: #fff;
+      background-color: rgba(0,0,0,0.4);
+      padding: 15px 20px;
+      border-radius: 10px;
+    }
+
+    .hero-text h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    section.gallery {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .gallery h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #5b3b2b;
+    }
+
+    .gallery-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .gallery-container img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-container img:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      background-color: #e8d8c3;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+      color: #5b3b2b;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Vistoria Kafe</h1>
+  </header>
+
+  <nav>
+    <a href="#">Anasayfa</a>
+    <a href="#">Galeri</a>
+    <a href="#">Menü</a>
+    <a href="#">İletişim</a>
+  </nav>
+
+  <!-- Hero Section / Kafe Ortamı -->
+  <section class="hero">
+    <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1200&q=80" alt="Kafe Ortamı">
+    <div class="hero-text">
+      <h2>Huzur ve Lezzet</h2>
+      <p>Vistoria'da kahvenizi keyifle yudumlayın.</p>
+    </div>
+  </section>
+
+  <!-- Galeri Bölümü -->
+  <section class="gallery">
+    <h2>Galeri</h2>
+    <div class="gallery-container">
+      <img src="https://images.unsplash.com/photo-1586088634519-8d644b3f4ec1?auto=format&fit=crop&w=800&q=80" alt="Kahve 1">
+      <img src="https://images.unsplash.com/photo-1604147706285-70e11f0b8e16?auto=format&fit=crop&w=800&q=80" alt="Kahve 2">
+      <img src="https://images.unsplash.com/photo-1621361365427-7cda6c555ac6?auto=format&fit=crop&w=800&q=80" alt="İç Mekan">
+      <img src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=800&q=80" alt="Latte Art">
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Vistoria Kafe | Tüm hakları saklıdır.
+  </footer>
+
+</body>
+</html>
