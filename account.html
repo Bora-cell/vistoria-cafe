@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kapsamlı Kullanıcı Yönetimi</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    margin: 0; padding: 0;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh;
+  }
+  .container {
+    background: white;
+    width: 380px;
+    border-radius: 10px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    padding: 30px 40px;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #2c3e50;
+  }
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #34495e;
+  }
+  input[type=text], input[type=password], input[type=email] {
+    width: 100%;
+    padding: 9px 12px;
+    margin-bottom: 15px;
+    border: 1.8px solid #bdc3c7;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
+    border-color: #2980b9;
+    outline: none;
+  }
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    font-size: 0.95rem;
+    color: #555;
+  }
+  button {
+    width: 100%;
+    padding: 11px;
+    background-color: #2980b9;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 15px;
+  }
+  button:hover {
+    background-color: #1f618d;
+  }
+  .toggle-password {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: #2980b9;
+    font-weight: 600;
+    user-select: none;
+    margin-left: 10px;
+    font-size: 0.9rem;
+  }
+  .form-group {
+    position: relative;
+  }
+  .password-strength {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: -10px;
+    margin-bottom: 15px;
+  }
+  .strength-weak {
+    color: #e74c3c;
+  }
+  .strength-medium {
+    color: #f39c12;
+  }
+  .strength-strong {
+    color: #27ae60;
+  }
+  .message {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: 600;
+    display: none;
+  }
+  .message.error {
+    color: #e74c3c;
+    display: block;
+  }
+  .message.success {
+    color: #27ae60;
+    display: block;
+  }
+  .switch-form {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #2980b9;
+    cursor: pointer;
+    user-select: none;
+  }
+  .social-login {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  .social-btn {
+    flex: 1;
+    margin: 0 6px;
+    background-color: #eee;
+    color: #444;
+    border-radius: 6px;
+    padding: 10px 0;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .social-btn.google {
+    background-color: #db4437;
+    color: white;
+  }
+  .social-btn.facebook {
+    background-color: #4267B2;
+    color: white;
+  }
+  .social-btn.twitter {
+    background-color: #1DA1F2;
+    color: white;
+  }
+  .social-btn:hover {
+    opacity: 0.85;
+  }
+  @media (max-width: 420px) {
+    .container {
+      width: 90%;
+      padding: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div id="form-container">
+
+    <!-- Giriş Formu -->
+    <form id="login-form">
+      <h2>Giriş Yap</h2>
+
+      <div class="social-login">
+        <div class="social-btn google" tabindex="0">Google ile Giriş</div>
+        <div class="social-btn facebook" tabindex="0">Facebook ile Giriş</div>
+        <div class="social-btn twitter" tabindex="0">Twitter ile Giriş</div>
+      </div>
+
+      <label for="login-username">Kullanıcı Adı veya E-posta</label>
+      <input type="text" id="login-username" name="username" placeholder="Kullanıcı adı veya e-posta" required />
+
+      <label for="login-password">Parola</label>
+      <div class="form-group">
+        <input type="password" id="login-password" name="password" placeholder="Parolanızı girin" required />
+        <span class="toggle-password" id="toggleLoginPassword">Göster</span>
+      </div>
+
+      <div class="checkbox-container">
+        <input type="checkbox" id="remember-me" name="rememberMe" />
+        <label for="remember-me">Beni Hatırla</label>
+      </div>
+
+      <div class="message error" id="login-error"></div>
+      <div class="message success" id="login-success"></div>
+
+      <button type="submit">Giriş Yap</button>
+
+      <div class="switch-form" id="to-register">Hesabınız yok mu? Kayıt Ol</div>
+      <div class="switch-form" id="to-reset">Şifreni mi unuttun?</div>
+    </form>
+
+    <!-- Kayıt Formu -->
+    <form id="register-form" style="display:none;">
+      <h2>Kayıt Ol</h2>
+
+      <label for="reg-username">Kullanıcı Adı</label>
+      <input type="text" id="reg-username" name="regUsername" placeholder="Kullanıcı adınızı girin" required />
+
+      <label for="reg-email">E-posta</label>
+      <input type="email" id="reg-email" name="regEmail" placeholder="E-posta adresinizi girin" required />
+
+      <label for="reg-password">Parola</label>
+      <div class="form-group">
+        <input type="password" id="reg-password" name="regPassword" placeholder="Parola oluşturun" required />
+        <span class="toggle-password" id="toggleRegPassword">Göster</span>
+      </div>
+
+      <div class="password-strength" id="password-strength"></div>
+
+      <label for="reg-password-confirm">Parola Tekrar</label>
+      <input type="password" id="reg-password-confirm" name="regPasswordConfirm" placeholder="Parolayı tekrar girin" required />
+
+      <div class="message error" id="register-error"></div>
+      <div class="message success" id="register-success"></div>
+
+      <button type="submit">Kayıt Ol</button>
+
+      <div class="switch-form" id="to-login">Zaten hesabınız var mı? Giriş Yap</div>
+    </form>
+
+    <!-- Şifre Sıfırlama Formu -->
+    <form id="reset-form" style="display:none;">
+      <h2>Şifre Sıfırlama</h2>
+
+      <label for="reset-email">Kayıtlı E-posta Adresi</label>
+      <input type="email" id="reset-email" name="resetEmail" placeholder="E-posta adresinizi girin" required />
+
+      <div class="message error" id="reset-error"></div>
+      <div class="message success" id="reset-success"></div>
+
+      <button type="submit">Şifre Sıfırlama Linki Gönder</button>
+
+      <div class="switch-form" id="back-to-login">Girişe Dön</div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Formlar ve butonlar
+  const loginForm = document.getElementById('login-form');
+  const registerForm = document.getElementById('register-form');
+  const resetForm = document.getElementById('reset-form');
+  const formContainer = document.getElementById('form-container');
+
+  // Switchler
+  document.getElementById('to-register').addEventListener('click', () => {
+    loginForm.style.display = 'none';
+    resetForm.style.display = 'none';
+    registerForm.style.display = 'block';
+    clearMessages();
+  });
+  document.getElementById('to-login').addEventListener('click', () => {
+    registerForm.style.display = 'none';
+    resetForm.style.display = 'none';
+    loginForm.style.display = 'block';
+    clearMessages();
+  });
+  document.getElementById('to-reset').addEventListener('click', () => {
+    loginForm.style.display = 'none';
+    registerForm.style.display = 'none';
+    resetForm.style.display = 'block';
+    clearMessages();
+  });
+  document.getElementById('back-to-login').addEventListener('click', () => {
+    resetForm.style.display = 'none';
+    registerForm.style.display = 'none';
+    loginForm.style.display = 'block';
+    clearMessages();
+  });
+
+  // Şifre göster/gizle fonksiyonu
+  function togglePasswordVisibility(toggleBtnId, inputId) {
+    const toggleBtn = document.getElementById(toggleBtnId);
+    const input = document.getElementById(inputId);
+
+    toggleBtn.addEventListener('click', () => {
+      if (input.type === 'password') {
+        input.type = 'text';
+        toggleBtn.textContent = 'Gizle';
+      } else {
+        input.type = 'password';
+        toggleBtn.textContent = 'Göster';
+      }
+    });
+  }
+  togglePasswordVisibility('toggleLoginPassword', 'login-password');
+  togglePasswordVisibility('toggleRegPassword', 'reg-password');
+
+  // Parola güç kontrolü (basit)
+  const regPasswordInput = document.getElementById('reg-password');
+  const passwordStrengthText = document.getElementById('password-strength');
+
+  regPasswordInput.addEventListener('input', () => {
+    const val = regPasswordInput.value;
+    let strength = 0;
+
+    if (val.length >= 8) strength++;
+    if (/[A-Z]/.test(val)) strength++;
+    if (/[0-9]/.test(val)) strength++;
+    if (/[\W_]/.test(val)) strength++;
+
+    if (!val) {
+      passwordStrengthText.textContent = '';
+      passwordStrengthText.className = 'password-strength';
+      return;
+    }
+
+    if (strength <= 1) {
+      passwordStrengthText.textContent = 'Parola Gücü: Zayıf';
+      passwordStrengthText.className = 'password-strength strength-weak';
+    } else if (strength === 2 || strength === 3) {
+      passwordStrengthText.textContent = 'Parola Gücü: Orta';
+      passwordStrengthText.className = 'password-strength strength-medium';
+    } else if (strength === 4) {
+      passwordStrengthText.textContent = 'Parola Gücü: Güçlü';
+      passwordStrengthText.className = 'password-strength strength-strong';
+    }
+  });
+
+  // Temizleme fonksiyonu
+  function clearMessages() {
+    document.querySelectorAll('.message').forEach(m => {
+      m.textContent = '';
+      m.style.display = 'none';
+    });
+  }
+
+  // Giriş formu submit simülasyonu
+  loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+    clearMessages();
+
+    const username = loginForm.username.value.trim();
+    const password = loginForm.password.value;
+
+    if (!username || !password) {
+      showMessage('login-error', 'Lütfen tüm alanları doldurun.');
+      return;
+    }
+
+    // Simülasyon: Kullanıcı adı 'user' ve parola '123456' başarılı
+    if ((username === 'user' || username === 'user@example.com') && password === '123456') {
+      showMessage('login-success', 'Giriş başarılı! Yönlendiriliyorsunuz...');
+      setTimeout(() => {
+        alert('Ana sayfaya yönlendiriliyorsunuz.');
+        loginForm.reset();
+        clearMessages();
+      }, 1500);
+    } else {
+      showMessage('login-error', 'Kullanıcı adı veya parola hatalı.');
+    }
+  });
+
+  // Kayıt formu submit simülasyonu
+  registerForm.addEventListener('submit', e => {
+    e.preventDefault();
+    clearMessages();
+
+    const username = registerForm.regUsername.value.trim();
+    const email = registerForm.regEmail.value.trim();
+    const password = registerForm.regPassword.value;
+    const passwordConfirm = registerForm.regPasswordConfirm.value;
+
+    if (!username || !email || !password || !passwordConfirm) {
+      showMessage('register-error', 'Lütfen tüm alanları doldurun.');
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      showMessage('register-error', 'Geçerli bir e-posta adresi girin.');
+      return;
+    }
+
+    if (password !== passwordConfirm) {
+      showMessage('register-error', 'Parolalar eşleşmiyor.');
+      return;
+    }
+
+    if (password.length < 6) {
+      showMessage('register-error', 'Parola en az 6 karakter olmalıdır.');
+      return;
+    }
+
+    // Simülasyon: Kayıt başarılı
+    showMessage('register-success', 'Kayıt başarılı! Giriş yapabilirsiniz.');
+    registerForm.reset();
+
+    setTimeout(() => {
+      registerForm.style.display = 'none';
+      loginForm.style.display = 'block';
+      clearMessages();
+    }, 2000);
+  });
+
+  // Şifre sıfırlama submit simülasyonu
+  resetForm.addEventListener('submit', e => {
+    e.preventDefault();
+    clearMessages();
+
+    const email = resetForm.resetEmail.value.trim();
+    if (!email) {
+      showMessage('reset-error', 'Lütfen e-posta adresinizi girin.');
+      return;
+    }
+    if (!validateEmail(email)) {
+      showMessage('reset-error', 'Geçerli bir e-posta adresi girin.');
+      return;
+    }
+
+    // Simülasyon: Link gönderildi
+    showMessage('reset-success', 'Şifre sıfırlama linki e-posta adresinize gönderildi.');
+    resetForm.reset();
+  });
+
+  // Email kontrol fonksiyonu
+  function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email.toLowerCase());
+  }
+
+  // Mesaj gösterme fonksiyonu
+  function showMessage(id, message) {
+    const el = document.getElementById(id);
+    el.textContent = message;
+    el.style.display = 'block';
+  }
+
+  // Sosyal medya butonları için örnek alert (işlev simülasyonu)
+  document.querySelectorAll('.social-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      alert(`${btn.textContent} - Henüz gerçek giriş desteği yok.`);
+    });
+  });
+
+</script>
+
+</body>
+</html>
