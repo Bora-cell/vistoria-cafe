@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Sipariş - [Kafe Adı]</title>
+    <link rel="stylesheet" href="css/style.css"> <link rel="stylesheet" href="css/order.css"> </head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <a href="index.html" class="logo">[Kafe Adı]</a>
+                <ul>
+                    <li><a href="index.html">Anasayfa</a></li>
+                    <li><a href="menu.html">Menü</a></li>
+                    <li><a href="about.html">Hakkımızda</a></li>
+                    <li><a href="gallery.html">Galeri</a></li>
+                    <li><a href="blogs-ve-haberler.html">Blog & Haberler</a></li>
+                    <li><a href="contact.html">İletişim</a></li>
+                    <li><a href="reservation.html">Rezervasyon</a></li>
+                    <li><a href="order.html" class="active">Sipariş Ver</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="order-hero" class="hero-section">
+            <div class="hero-content">
+                <h1>Online Sipariş Verin</h1>
+                <p>En sevdiğiniz lezzetler bir tık uzağınızda!</p>
+            </div>
+        </section>
+
+        <section id="order-menu" class="py-5">
+            <div class="container">
+                <h2>Menüden Seçim Yapın</h2>
+                <div class="menu-categories">
+                    <button class="category-btn active" data-category="all">Tümü</button>
+                    <button class="category-btn" data-category="kahveler">Kahveler</button>
+                    <button class="category-btn" data-category="tatlilar">Tatlılar</button>
+                    <button class="category-btn" data-category="icecekler">İçecekler</button>
+                    <button class="category-btn" data-category="yiyecekler">Yiyecekler</button>
+                </div>
+
+                <div id="menu-items" class="menu-grid">
+                    </div>
+            </div>
+        </section>
+
+        <section id="cart-section" class="py-5 bg-light">
+            <div class="container">
+                <h2>Sepetiniz</h2>
+                <div id="cart-items">
+                    <p class="empty-cart-message">Sepetinizde henüz ürün bulunmuyor.</p>
+                </div>
+                <div class="cart-summary">
+                    <p>Toplam: <span id="cart-total">0.00</span> TL</p>
+                    <button id="checkout-btn" class="btn btn-primary" disabled>Siparişi Tamamla</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="checkout-form-section" class="py-5" style="display: none;">
+            <div class="container">
+                <div class="checkout-form-wrapper">
+                    <h2>Sipariş Detayları ve Teslimat</h2>
+                    <form id="checkoutForm">
+                        <h3>Teslimat Bilgileri</h3>
+                        <div class="form-group">
+                            <label for="checkout-name">Adınız Soyadınız:</label>
+                            <input type="text" id="checkout-name" name="name" required placeholder="Adınız Soyadınız">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkout-phone">Telefon Numaranız:</label>
+                            <input type="tel" id="checkout-phone" name="phone" required placeholder="örn: 5XX XXX XX XX" pattern="[0-9]{10}">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkout-address">Adresiniz:</label>
+                            <textarea id="checkout-address" name="address" rows="3" required placeholder="Açık adresinizi giriniz..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkout-notes">Sipariş Notu (Opsiyonel):</label>
+                            <textarea id="checkout-notes" name="notes" rows="2" placeholder="Özel isteğiniz var mı?"></textarea>
+                        </div>
+
+                        <h3>Ödeme Yöntemi</h3>
+                        <div class="form-group">
+                            <input type="radio" id="payment-cash" name="paymentMethod" value="cash" checked>
+                            <label for="payment-cash">Kapıda Ödeme (Nakit/Kredi Kartı)</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Siparişi Onayla ve Gönder</button>
+                        <div id="checkout-messages" class="mt-3"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 [Kafe Adı]. Tüm Hakları Saklıdır.</p>
+            <div class="social-links">
+                <a href="#" target="_blank">Facebook</a>
+                <a href="#" target="_blank">Instagram</a>
+                <a href="#" target="_blank">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/order.js"></script>
+</body>
+</html>
